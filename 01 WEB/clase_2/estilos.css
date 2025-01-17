@@ -1,0 +1,29 @@
+h1{
+    color: red;
+}
+
+p{
+    color: blueviolet;
+}
+
+#ocho{
+    color: white;
+    background-color: black;
+}
+
+.azul_blanco{
+    color: white;
+    background-color: blue;
+}
+
+.azul_fondo{
+    background-color: blue;
+}
+
+.texto_blanco{
+    color: white;
+}
+
+.texto_rojo{
+    color: red;
+}

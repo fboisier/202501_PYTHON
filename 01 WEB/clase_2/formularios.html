@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Formularios</title>
+    </head>
+    <body>
+        <h1>Formularios</h1>
+        <hr />
+
+        <form>
+            <div id="uno">
+                <label for="var_nombre">Nombre: </label>
+                <input type="text" id="var_nombre" name="nombre" />
+            </div>
+
+            <div>
+                <label for="var_edad">Edad: </label>
+                <input type="number" id="var_edad" name="edad" />
+            </div>
+
+            <div>
+                <input type="checkbox" id="acepto" name="acepto" />
+                <label for="acepto">Acepto los términos y condiciones</label>
+            </div>
+
+            <div>
+                <label>Estilo de fuente:</label>
+                <input
+                    type="radio"
+                    id="negrita"
+                    name="estilo_fuente"
+                    value="bold"
+                />
+                <label for="negrita"><strong>Negrita</strong></label>
+                <input
+                    type="radio"
+                    id="normal"
+                    name="estilo_fuente"
+                    value="normal"
+                />
+                <label for="normal">Normal</label>
+                <input
+                    type="radio"
+                    id="cursiva"
+                    name="estilo_fuente"
+                    value="cursiva"
+                />
+                <label for="cursiva">Cursiva</label>
+            </div>
+
+            <div>
+                <label for="clave">Contraseña: </label>
+                <input type="password" id="clave" name="clave" />
+            </div>
+
+            <div>
+                <label for="fecha_nacimiento">Fecha de nacimiento: </label>
+                <input
+                    type="date"
+                    id="fecha_nacimiento"
+                    name="fecha_nacimiento"
+                />
+            </div>
+
+            <div>
+                <label for="hora"
+                    >hora de <span id="nombre_nacimiento">nacimiento</span>:
+                </label>
+                <input type="time" id="hora" name="hora" />
+            </div>
+            <div>
+                <label for="fechahora">fechahora de nacimiento: </label>
+                <input type="datetime-local" id="fechahora" name="fechahora" />
+            </div>
+            <div>
+                <label for="color_texto">Color del texto: </label>
+                <input type="color" id="color_texto" name="color_texto" />
+            </div>
+
+            <div>
+                <label for="comentario">Comentario: </label>
+                <textarea
+                    id="comentario"
+                    name="comentario"
+                    rows="7"
+                    cols="20"
+                ></textarea>
+            </div>
+
+            <div id="trece">
+                <label for="usuario">Bandas: </label>
+                <select id="bandas" name="bandas">
+                    <option value="almendras">Imagine Dragons</option>
+                    <option value="queso">The Weeknd</option>
+                    <option value="hummus">Twenty One Pilots</option>
+                    <option value="pan">Iron Maiden</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="usuario">usuario: </label>
+                <select id="usuario" name="usuario">
+                    <option value="1">1 - Admin</option>
+                    <option value="2">2 - Pancho</option>
+                </select>
+            </div>
+
+            <input id="enviar" type="submit" value="Enviar" />
+        </form>
+    </body>
+</html>
