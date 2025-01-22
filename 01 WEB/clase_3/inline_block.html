@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Inline-Blocks</title>
+        <style>
+            h1,
+            li {
+                display: inline;
+            }
+            li.menu-item {
+                padding: 10px;
+                background-color: white;
+                color: blue;
+                border-radius: 10px;
+                margin-left: 30px;
+                border: 2px solid blue;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 20px;
+            }
+            li.menu-item:hover {
+                background-color: gray;
+                color: white;
+                cursor: pointer;
+            }
+
+            label {
+                display: block;
+            }
+            input {
+                display: block;
+            }
+
+            .destacar {
+                font-size: 20px;
+                font-family: "Franklin Gothic Medium", "Arial Narrow", Arial,
+                    sans-serif;
+                color: red;
+                padding: 0px 10px;
+                margin: 10px;
+                border: 1px solid red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Hola</h1>
+        <h1>Mundo</h1>
+        <div>
+            <label>Nombre</label>
+            <input type="text" name="nombre" />
+            <label>Nombre</label>
+            <input type="text" name="nombre" />
+            <label>Nombre</label>
+            <input type="text" name="nombre" />
+        </div>
+
+        <ul>
+            <li class="menu-item">Santiago</li>
+            <li class="menu-item">Temuco</li>
+            <li class="menu-item">Coyhaique</li>
+        </ul>
+
+        <ul>
+            <li>Santiago</li>
+            <li>Temuco</li>
+            <li>Coyhaique</li>
+        </ul>
+
+        <p>
+            Lorem ipsum dolor sit amet
+            <span class="destacar">consectetur adipisicing</span> elit.
+            Dignissimos cupiditate voluptates, eveniet accusamus ducimus
+            pariatur neque corrupti sequi eum
+            <span class="destacar">quibusdam magni eius consectetur</span>
+            quasi temporibus ullam voluptate rerum. Aspernatur, sed.
+        </p>
+    </body>
+</html>
