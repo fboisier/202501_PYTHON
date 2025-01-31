@@ -29,5 +29,9 @@ console.log(persona2)
 var personas = [persona, persona2] 
 //                  0       1
 
+for (var indice = 0; indice < personas.length ; indice++){
+    console.log("PERSONA: " + indice, " ", personas[indice].nombre)
+}
+
 console.log(personas)
 console.log(personas[1].edad)

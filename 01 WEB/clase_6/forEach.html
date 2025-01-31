@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            button {
+                background-color: tomato;
+                padding: 10px;
+                border: 1px solid red;
+                color: white;
+                border-radius: 5px;
+            }
+            button:hover {
+                background-color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <button>Eliminar</button>
+        <button>Eliminar</button>
+        <button>Eliminar</button>
+        <button>Eliminar</button>
+        <button>Eliminar</button>
+        <button>Eliminar</button>
+        <button>Eliminar</button>
+        <button>Eliminar</button>
+        <button>Eliminar</button>
+        <button>Eliminar</button>
+
+        <script>
+            function remueveElemento() {
+                this.remove();
+            }
+
+            var botones = document.querySelectorAll("button");
+
+            // for (var boton of botones) {
+            //     boton.addEventListener("click", function () {
+            //         this.remove();
+            //     });
+            // }
+            var boton = 10;
+
+            botones.forEach(function (boton) {
+                boton.addEventListener("click", function () {
+                    this.remove();
+                });
+            });
+            console.log(boton);
+        </script>
+    </body>
+</html>

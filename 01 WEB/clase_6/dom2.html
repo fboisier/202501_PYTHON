@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>DOM</title>
+
+        <style>
+            .rojo_blanco {
+                color: white;
+                background-color: tomato;
+                border: 1px solid black;
+            }
+            .azul_blanco {
+                color: white;
+                background-color: blue;
+                border: 1px solid black;
+            }
+            .pading-5 {
+                padding: 25px;
+            }
+            button {
+                background-color: tomato;
+                padding: 10px;
+                border: 1px solid red;
+                color: white;
+                border-radius: 5px;
+            }
+            button:hover {
+                background-color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="azul_blanco pading-5">Esto es un TITULO</h1>
+        <button>Cambiar</button>
+        <script>
+            var titulo = document.querySelector("h1");
+            var boton = document.querySelector("button");
+
+            boton.addEventListener("click", function () {
+                titulo.classList.remove("azul_blanco");
+                titulo.classList.add("rojo_blanco");
+                titulo.classList.toggle("pading-5");
+                alert(titulo.innerHTML);
+            });
+        </script>
+    </body>
+</html>
