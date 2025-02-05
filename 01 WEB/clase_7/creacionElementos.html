@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            div {
+                border: 1px solid;
+            }
+            .personaje {
+                border: 2px solid darkgreen;
+                border-radius: 20px;
+                background-color: green;
+                color: white;
+                margin-top: 20px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="contenedor">
+            <h1>HOLA</h1>
+            <input type="number" id="numero" />
+            <button id="btnBuscar">Buscar</button>
+        </div>
+        <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            $("div").prepend("<p>Antes Pero Dentro del DIV</p>");
+            $("div").append("<p>Al final Pero dentro del DIV</p>");
+            $("div").after("<p>Despues Pero FUERA del DIV</p>");
+            $("div").before("<p>Antes Pero FUERA del DIV</p>");
+
+            async function getCoderData(texto) {
+                var response = await fetch(
+                    "https://swapi.dev/api/people/" + texto
+                );
+                console.log(response);
+                var coderData = await response.json();
+                console.log(coderData);
+
+                $("div#contenedor").after(`
+
+                    <div class="personaje">
+                        <h1>${coderData.name}</h1>
+                        <p>Nacimiento: ${coderData.birth_year}</p>
+                    </div>
+                
+                `);
+            }
+
+            $("#btnBuscar").click(function () {
+                const texto = $("#numero").val();
+                console.log(texto);
+
+                getCoderData(texto);
+            });
+        </script>
+    </body>
+</html>

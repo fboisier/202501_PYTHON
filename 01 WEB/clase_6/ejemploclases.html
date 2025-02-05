@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Clases</title>
+        <style>
+            #contenedor {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
+            }
+            .tarjeta {
+                padding: 20px;
+                border-radius: 10px;
+                color: white;
+                width: 30%;
+                margin: 10px;
+                border: 2px solid black;
+            }
+
+            .bg-gray {
+                background-color: gray;
+            }
+            .bg-blue {
+                background-color: blue;
+            }
+            .bg-tomato {
+                background-color: tomato;
+            }
+            .bg-brown {
+                background-color: brown;
+            }
+
+            @media screen and (max-width: 700px) {
+                .tarjeta {
+                    width: 50%;
+                }
+            }
+            @media screen and (min-width: 1500px) {
+                .tarjeta {
+                    width: 10%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Ejemplo eso de clases.</h1>
+
+        <div id="contenedor">
+            <div class="tarjeta bg-gray">
+                <h1>Arbol 1</h1>
+                <p>Texto 1</p>
+                <p>Texto 2</p>
+            </div>
+            <div class="tarjeta bg-blue">
+                <h1>Arbol 2</h1>
+                <p>Texto 1</p>
+                <p>Texto 2</p>
+            </div>
+            <div class="tarjeta bg-tomato">
+                <h1>Arbol 3</h1>
+                <p>Texto 1</p>
+                <p>Texto 2</p>
+            </div>
+            <div class="tarjeta bg-brown">
+                <h1>Arbol 4</h1>
+                <p>Texto 1</p>
+                <p>Texto 2</p>
+            </div>
+        </div>
+    </body>
+</html>

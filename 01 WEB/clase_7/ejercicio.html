@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Ejercicio</title>
+        <link rel="stylesheet" href="css/ejercicio.css" />
+    </head>
+    <body>
+        <header>
+            <h1>Tiempo Local</h1>
+            <ul id="menu">
+                <li><a href="#">Buenos Aires</a></li>
+                <li><a href="#">Ciudad de México</a></li>
+                <li><a href="#">Santiago</a></li>
+                <li><a href="#">Sao Paulo</a></li>
+                <li><a href="#">Quito</a></li>
+            </ul>
+            <div>
+                <label>Mostrar temperatura en </label>
+                <select id="opcion">
+                    <option value="C">°C</option>
+                    <option value="F">°F</option>
+                </select>
+            </div>
+        </header>
+        <main>
+            <h2>Buenos Aires</h2>
+            <div>
+                <article>
+                    <img src="img/nube.png" />
+                    <h3>Hoy</h3>
+                    <p>Nublado</p>
+                    <div>
+                        <span class="numero">22</span>
+                        <span class="grado_titulo">C°</span>
+                        <span class="numero">15</span>
+                        <span class="grado_titulo">C°</span>
+                    </div>
+                </article>
+                <article>
+                    <img src="img/lluvia.png" />
+                    <h3>Mañana</h3>
+                    <p>Lluvioso</p>
+                    <div>
+                        <span class="numero">20</span>
+                        <span class="grado_titulo">C°</span>
+                        <span class="numero">13</span>
+                        <span class="grado_titulo">C°</span>
+                    </div>
+                </article>
+            </div>
+        </main>
+        <footer>Mucho Texto <span class="btnFooter">Acepto</span></footer>
+        <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"
+        ></script>
+        <script src="js/ejercicio_jquery.js"></script>
+    </body>
+</html>
