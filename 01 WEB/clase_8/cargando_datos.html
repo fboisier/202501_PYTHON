@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cargando Datos</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+    </head>
+    <body>
+        <div class="container mt-5">
+            <buttton id="abrirModal" class="btn btn-success"
+                >Abrir Modal</buttton
+            >
+
+            <div id="contenedor-ciudades" class="row"></div>
+        </div>
+
+        <div id="modal-selector-ciudad" class="modal" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Consulta tu CLIMA!</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label
+                                for="exampleFormControlInput1"
+                                class="form-label"
+                                >Indica tu ciudad</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="ciudad"
+                                placeholder="por ejemplo Temuco"
+                            />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            id="agregarCiudad"
+                            type="button"
+                            class="btn btn-primary"
+                        >
+                            Agregar Ciudad
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            $("#agregarCiudad").click(function () {
+                const textoCiudad = $("#ciudad").val();
+                console.log(textoCiudad);
+                consultarCiudad(textoCiudad);
+
+                $("#modal-selector-ciudad").modal("hide");
+                $("#ciudad").val("");
+            });
+            $("#abrirModal").click(function () {
+                $("#modal-selector-ciudad").modal("show");
+            });
+
+            function consultarCiudad(ciudad) {
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=620bbb57886d76cdd10fb1e31a33bd36&units=metric&lang=es`;
+
+                async function getCiudad() {
+                    try {
+                        const response = await axios.get(url);
+                        const datos = response.data;
+                        console.log(datos);
+                        $("#contenedor-ciudades").prepend(creaTarjeta(datos));
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+                getCiudad();
+            }
+
+            function creaTarjeta(datos) {
+                const html = `
+                <div class="col-sm-4">
+                    <div class="card m-3">
+                        <img
+                            src="https://openweathermap.org/img/wn/${datos.weather[0].icon}@4x.png"
+                            class="card-img-top"
+                            alt="Icono"
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title">${datos.name}</h5>
+                            <ul>
+                                <li>Temperatura Actual: <span>${datos.main.temp}°</span></li>
+                                <li>Sensación Térmica: <span>${datos.main.feels_like}°</span></li>
+                                <li>Descripción: <span>${datos.weather[0].description}</span></li>
+                            </ul>
+                            <a href="#" class="btn btn-danger btnQuitar">Quitar</a>
+                        </div>
+                    </div>
+                </div>
+                `;
+                return html;
+            }
+
+            $(document).on("click", ".btnQuitar", function () {
+                $(this).parents(".col-sm-4").remove();
+            });
+        </script>
+    </body>
+</html>

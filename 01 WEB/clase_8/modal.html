@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Modal</title>
+        <style>
+            @font-face {
+                font-family: "pancho";
+                src: url("fonts/daily_bubble.ttf");
+            }
+
+            .btn {
+                padding: 10px;
+                background-color: green;
+                color: white;
+                border-radius: 10px;
+                border: 1px solid green;
+                font-family: "pancho", sans-serif;
+            }
+            .btn:hover {
+                cursor: pointer;
+                background-color: lightgreen;
+                color: black;
+            }
+            h1 {
+                font-family: "pancho", sans-serif;
+                color: brown;
+            }
+            .modal {
+                position: fixed;
+                border: 2px solid #ccc;
+                min-width: 300px;
+                height: 200px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                background-color: white;
+            }
+            .modal footer {
+                padding: 0px;
+                bottom: 0;
+                position: fixed;
+                background-color: lightgray;
+                height: 40px;
+                width: 100%;
+                display: flex;
+                flex-direction: row-reverse;
+            }
+
+            .modal footer button {
+                width: 100px;
+                height: 22px;
+                margin-top: 10px;
+                margin-right: 10px;
+                background-color: green;
+                color: white;
+                border-radius: 10px;
+                border: 1px solid green;
+            }
+            .modal h3 {
+                margin-top: 0px;
+                padding: 10px;
+                text-align: center;
+                border: 1px solid #ccc;
+                font-family: "pancho", sans-serif;
+                font-size: 15px;
+                color: darkgray;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Este es un ejemplo de Modal Propio</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur
+            libero quas vel magnam rerum eum quo eos voluptatum tempore quae,
+            hic accusamus quidem possimus nemo soluta a reprehenderit est alias.
+        </p>
+        <button class="btn modal-open">Abrir Modal</button>
+
+        <div id="ejemplo" class="modal">
+            <header>
+                <h3>Titulo de Prueba</h3>
+            </header>
+
+            <main>
+                <p>Esto es un ejemplo de lo que se puede hacer con un modal</p>
+            </main>
+
+            <footer>
+                <button>CERRAR</button>
+            </footer>
+        </div>
+        <script>
+            const botonModal = document.querySelector("button.modal-open");
+            const botonCerrar = document.querySelector(".modal footer button");
+            const modal = document.querySelector("#ejemplo");
+
+            botonModal.addEventListener("click", function () {
+                modal.style.display = "block";
+            });
+            botonCerrar.addEventListener("click", function () {
+                modal.style.display = "none";
+            });
+        </script>
+    </body>
+</html>
