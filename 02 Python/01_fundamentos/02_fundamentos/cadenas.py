@@ -9,6 +9,8 @@ entero = 5
 
 print(flotante + entero)
 
+print(f"hacer escapar el valor {entero}")
+
 print("Mi nombre es %s y tengo %d años de edad." % (nombre, edad))
 print(
     "Mi nombre es %(name)s y tengo %(age)d años de edad."

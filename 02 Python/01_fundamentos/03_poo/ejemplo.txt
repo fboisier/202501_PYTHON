@@ -1,0 +1,31 @@
+Vehiculo
+- Modelo
+- Marca
+- Combustible
+- Carrosería
+- Color
+- Patente
+- Dueño
+- Tracción
+
+- encender_motor()
+- apagar_motor()
+- accelerar()
+- virar()
+- cambiarCambio()
+- frenar()
+
+Auto(Vehiculo)
+- Puertas
+- TieneTecho
+
+queHacer:
+- retrocede()
+
+Moto(Vehiculo)
+- Soporte
+
+queHacer:
+- frenar_delatero()
+- frenar_trasero()
+
