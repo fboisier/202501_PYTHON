@@ -1,4 +1,4 @@
-from modulo import Animal
+from clases import Animal
 
 
 class Oso(Animal):

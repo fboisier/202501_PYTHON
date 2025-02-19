@@ -1,5 +1,5 @@
-from modulo import Animal, Perro, Gato, Tigre, Oso
-
+from clases import Animal, Perro, Gato, Tigre
+from otra_cosa import Oso
 
 animales: list[Animal] = []
 
