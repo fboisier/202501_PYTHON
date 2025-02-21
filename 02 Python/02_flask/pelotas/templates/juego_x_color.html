@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Juego</title>
+
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/pelotas.css') }}"
+        />
+
+        <style>
+            .pelota{
+                background-color: {{color}};
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="mt-2 p-2 text-center">Juguemos a las pelotas</h1>
+            <hr />
+
+            <div class="contenedor-pelotas">
+                {% for x in range(contador) %}
+                <div class="pelota"></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    </body>
+</html>

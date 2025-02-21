@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Mision</title>
+    </head>
+    <body>
+        <h1>Esto es una mision {{nombre_mision}}</h1>
+
+        {% for x in range(repite): %}
+
+        <h3>{{ nombre_mision }} {{x}}</h3>
+
+        {% endfor %} {# revisamos si en la canción incluyen la palabra
+        "macarena" #} {% if "contexto" in nombre_mision: %}
+
+        <h4>¡Viva el CONTEXTO!!</h4>
+
+        {% endif %}
+    </body>
+</html>
