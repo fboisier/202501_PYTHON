@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Frutas</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/estilos.css') }}"
+        />
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="mt-2 p-2 text-center">Mercado de Frutas</h1>
+            <hr />
+
+            <h3>TU ORDEN!</h3>
+            <hr />
+            <table class="table table-striped">
+                <tr>
+                    <th>Fruta</th>
+                    <td>Cantidad</td>
+                </tr>
+                <tr>
+                    <th>Fresa/Frutilla</th>
+                    <td>{{fresas}}</td>
+                </tr>
+                <tr>
+                    <th>Frambuesa</th>
+                    <td>{{frambuesas}}</td>
+                </tr>
+                <tr>
+                    <th>Manzana</th>
+                    <td>{{manzanas}}</td>
+                </tr>
+            </table>
+
+            <h3 class="mt-2">Información de la orden</h3>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mt-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            value="{{nombre}}"
+                            disabled
+                        />
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mt-3">
+                        <label for="apellido" class="form-label"
+                            >Apellido</label
+                        >
+                        <input
+                            type="text"
+                            class="form-control"
+                            value="{{apellido}}"
+                            disabled
+                        />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="mt-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            value="{{email}}"
+                            disabled
+                        />
+                    </div>
+                </div>
+            </div>
+            <a href="/limpiar_sesion" class="btn btn-warning mt-5"
+                >Volver a comprar (limpiar sesion)</a
+            >
+        </div>
+
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Formularios</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/estilos.css') }}"
+        />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <h1 class="mt-2 p-2 text-center">Formularios</h1>
+                    <hr />
+                    <form action="/crear_usuario" method="POST">
+                        <label class="mt-2">Nombre:</label>
+
+                        <input type="text" name="nombre" class="form-control" />
+
+                        <label class="mt-2">E-mail:</label>
+
+                        <input type="text" name="email" class="form-control" />
+
+                        <input
+                            type="submit"
+                            value="Crear Usuario"
+                            class="btn btn-primary mt-3"
+                        />
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    </body>
+</html>
