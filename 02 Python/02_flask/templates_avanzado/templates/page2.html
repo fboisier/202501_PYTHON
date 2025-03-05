@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block titulo %}Página 2{% endblock %}
+
+{% block mis_estilos %}
+<link
+rel="stylesheet"
+href="{{ url_for('static', filename='css/mi_estilo_pagina_2.css') }}"
+/>
+{% endblock %}
+
+{% block contenido %}
+<h1 class="mt-2 p-2 text-center">Página 2</h1>
+<hr />
+{% endblock %}
