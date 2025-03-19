@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block titulo %}Lista de usuarios{% endblock %}
+
+{% block contenido %}
+<h1 class="mt-2 p-2 text-center">Listado de Usuarios</h1>
+<hr />
+
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{usuario.id}}</td>
+            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.email}}</td>
+            <td>
+                <a class="btn btn-info" href="/usuarios/{{usuario.id}}">Ver detalle</a>
+                <a class="btn btn-warning" href="/usuarios/editar/{{usuario.id}}">Editar</a>
+                <a class="btn btn-danger" href="/usuarios/eliminar/{{usuario.id}}">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    
+</table>
+
+
+{% endblock %}
+
+{% block mis_scripts %} 
+
+<script>
+</script>
+
+{% endblock %}
