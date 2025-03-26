@@ -36,3 +36,30 @@ class Pais:
     def save(cls, datos):
         query = "INSERT INTO paises (nombre, created_at, updated_at) VALUES (%(nombre)s, NOW(), NOW());"
         return connectToMySQL().query_db(query, datos)
+    
+    def update(self):
+        query = """
+                UPDATE paises
+                    SET
+                        nombre = %(nombre)s,
+                        updated_at = NOW()
+                    WHERE id = %(id)s;
+                """
+        
+        datos = {
+            'id': self.id,
+            'nombre': self.nombre
+        }
+        return connectToMySQL().query_db(query, datos)
+
+
+
+    @classmethod
+    def delete(cls, id):
+
+        query = f"DELETE FROM paises WHERE id = %(id)s;"
+        data = {
+            'id': id
+        }
+        connectToMySQL().query_db(query, data)
+        return True

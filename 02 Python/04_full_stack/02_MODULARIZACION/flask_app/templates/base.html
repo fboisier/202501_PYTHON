@@ -21,6 +21,11 @@
             href="{{ url_for('static', filename='css/datatables.min.css') }}"
         />
 
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/sweetalert2.min.css') }}"
+        />
+
         {% block mis_estilos %} {% endblock %}
     </head>
     <body>
@@ -38,6 +43,7 @@
         <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/toastr.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/datatables.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/sweetalert2.all.min.js') }}"></script>
 
         <script>
             const opcionesDatatable = {

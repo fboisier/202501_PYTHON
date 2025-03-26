@@ -21,8 +21,8 @@
             <td>{{item.nombre}}</td>
             <td>
                 <a class="btn btn-info" href="/{{sujeto}}/{{item.id}}">Ver detalle</a>
-                <a class="btn btn-warning" href="/{{sujeto}}/editar/{{item.id}}">Editar</a>
-                <a class="btn btn-danger" href="/{{sujeto}}/eliminar/{{item.id}}">Eliminar</a></td>
+                <a class="btn btn-warning" href="/{{sujeto}}/{{item.id}}/editar">Editar</a>
+                <a class="btn btn-danger btnEliminar" href="#" data-identificador="{{item.id}}" data-nombre="{{item.nombre}}">Eliminar</a></td>
         </tr>
         {% endfor %}
     </tbody>
@@ -37,6 +37,25 @@
 
 <script>
     const tablaDatos = new DataTable('#tablaDatos', opcionesDatatable);
+    $(".btnEliminar").click(function(){
+
+        const identificador = $(this).data("identificador");
+        const nombre = $(this).data("nombre");
+
+        Swal.fire({
+            title: `¿Seguro que quieres eliminar ${nombre}?`,
+            text: "No podrás revertir esta opción",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Si, ELIMINAR!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href=`/{{sujeto}}/${identificador}/eliminar`;
+            }
+        });
+    });
 </script>
 
 {% endblock %}
