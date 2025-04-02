@@ -2,6 +2,8 @@ from flask_app import app
 from flask_app.model.clientes import Cliente
 from flask_app.model.direcciones import Direccion
 from flask_app.model.tipos_clientes import TipoCliente
+from flask_app.model.productos import Producto
+
 from flask import render_template, request, flash, redirect
 
 @app.route("/clientes")
@@ -37,6 +39,9 @@ def procesar_cliente():
         'direccion_id': request.form['direccion_id'],
         'tipo_cliente_id': request.form['tipo_cliente_id']
     }
+    if not Cliente.validar(datos):
+        return redirect("/clientes/crear")
+
     Cliente.save(datos)
     flash("Cliente ingresado correctamente", "success")
     return redirect("/clientes")
@@ -79,3 +84,19 @@ def procesar_eliminado_cliente(id):
     else:
         flash("Error al eliminar el cliente", "error")
     return redirect("/clientes")
+
+
+@app.route("/clientes/<int:id>/productos/crear")
+def producto_en_cliente(id):
+    objeto = Cliente.get(id)
+    productos = Producto.get_all()
+    return render_template("clientes/formulario_producto.html", objeto=objeto, productos=productos)
+
+@app.route("/clientes/<int:id>/productos/crear", methods=["POST"])
+def procesar_producto_en_cliente(id):
+    cliente_instancia = Cliente.get(id)
+    producto_id = request.form['producto_id']
+
+    cliente_instancia.save_producto(producto_id)
+    flash("Producto agregado al cliente correctamente", "success")
+    return redirect(f"/clientes/{id}")

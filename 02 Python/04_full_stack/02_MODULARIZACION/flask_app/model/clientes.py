@@ -1,6 +1,11 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.model.direcciones import Direccion
 from flask_app.model.tipos_clientes import TipoCliente
+from flask_app.model.productos import Producto
+from flask import flash
+import re
+
+DNI_VALIDADOR_REGEX = re.compile(r"^[0-9]{3,}-[0-9]{5,}$")
 
 class Cliente:
 
@@ -18,6 +23,44 @@ class Cliente:
         # generadas
         self.direccion = None
         self.tipo_cliente = None
+        self.productos = []
+
+    @staticmethod
+    def validar(data):
+
+        esta_todo_ok = True
+
+        if len(data["dni"]) < 3:
+            flash("El DNI tiene menos de 3 caracteres", "error")
+            esta_todo_ok = False
+        
+        if not DNI_VALIDADOR_REGEX.match(data["dni"]):
+            flash("Debe contener exactamente un guión (-) Mínimo 3 caracteres antes del guión Mínimo 5 caracteres después del guión Debe tener al menos un número antes y después del guión", 
+                "error"
+            )
+            esta_todo_ok = False
+
+        if "-" not in data["dni"]:
+            flash("El DNI debe contener al menos un guión (-)", "error")
+            esta_todo_ok = False
+    
+        if len(data["nombre"]) < 3:
+            flash("El nombre tiene menos de 3 caracteres", "error")
+            esta_todo_ok = False
+
+        if len(data["apellido"]) < 3:
+            flash("El apellido tiene menos de 3 caracteres", "error")
+            esta_todo_ok = False
+        
+        if not data["direccion_id"]:
+            flash("Debes seleccionar una dirección", "error")
+            esta_todo_ok = False
+
+        if not data["tipo_cliente_id"]:
+            flash("Debes seleccionar un tipo de cliente", "error")
+            esta_todo_ok = False
+
+        return esta_todo_ok
 
     @classmethod
     def get_all(cls):
@@ -74,14 +117,38 @@ class Cliente:
     
     @classmethod
     def get(cls, id):
-        query = "SELECT id, dni, nombre, apellido, direccion_id, tipo_cliente_id, eliminado, created_at, updated_at FROM clientes WHERE id = %(id)s AND eliminado = 0;"
+        query = """
+        SELECT 
+            clientes.id, dni, clientes.nombre, apellido, direccion_id, tipo_cliente_id, eliminado, clientes.created_at, clientes.updated_at,
+            productos.id, productos.nombre, productos.created_at, productos.updated_at
+        FROM
+            clientes
+                LEFT JOIN
+            clientes_has_productos ON clientes.id = clientes_has_productos.cliente_id
+                LEFT JOIN
+            productos ON clientes_has_productos.producto_id = productos.id
+        WHERE
+            clientes.id = %(id)s AND eliminado = 0;
+        """
         data = {
             'id': id
         }
         resultados = connectToMySQL().query_db(query, data)
+        
         if resultados:
-            instancia_nueva = cls(resultados[0])
-            return instancia_nueva
+            instancia_cliente = cls(resultados[0])
+
+            for resultado in resultados:
+                datos_producto={
+                    'id': resultado['productos.id'],
+                    'nombre': resultado['productos.nombre'],
+                    'created_at': resultado['productos.created_at'],
+                    'updated_at': resultado['productos.updated_at'],
+                }
+                instancia_producto = Producto(datos_producto)
+                instancia_cliente.productos.append(instancia_producto)
+
+            return instancia_cliente
         return None
 
     @classmethod
@@ -124,3 +191,14 @@ class Cliente:
         }
         connectToMySQL().query_db(query, data)
         return True
+
+
+    def save_producto(self, producto_id):
+        query = """
+        INSERT INTO clientes_has_productos (cliente_id, producto_id) VALUES (%(cliente_id)s, %(producto_id)s);
+        """
+        datos = {
+            'cliente_id': self.id,
+            'producto_id': producto_id
+        }
+        return connectToMySQL().query_db(query, datos)
