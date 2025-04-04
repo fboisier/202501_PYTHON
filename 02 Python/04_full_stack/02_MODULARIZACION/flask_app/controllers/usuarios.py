@@ -45,6 +45,7 @@ def procesar_usuario():
     flash("Usuario ingresado correctamente", "success")
     return redirect("/usuarios")
 
+
 # region EDITAR
 @app.route("/usuarios/<int:id>/editar")
 def usuario_actualizar(id):
@@ -57,6 +58,7 @@ def usuario_actualizar(id):
 
 @app.route("/usuarios/<int:id>/editar", methods=["POST"])
 def procesar_editar_usuario(id):
+    print("formulario:", request.form)
     objeto = Usuario.get(id)
     objeto.nombre = request.form['nombre']
     objeto.email = request.form['email']

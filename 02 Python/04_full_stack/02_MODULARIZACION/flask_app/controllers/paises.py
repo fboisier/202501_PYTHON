@@ -1,8 +1,10 @@
 from flask_app import app
 from flask_app.model.paises import Pais
 from flask import render_template, request, flash, redirect
+from flask_app.utils.decoradores import login_required
 
 @app.route("/paises")
+@login_required
 def listar_paises():
 
     datos = Pais.get_all()
@@ -12,6 +14,7 @@ def listar_paises():
 
 
 @app.route("/paises/<id>")
+@login_required
 def detalle_pais(id):
 
     objeto = Pais.get(id)
@@ -21,11 +24,13 @@ def detalle_pais(id):
 
 # region CREAR
 @app.route("/paises/crear")
+@login_required
 def pais_crear():
     return render_template("paises/formulario.html", sujeto='pais')
 
 
 @app.route("/paises", methods=["POST"])
+@login_required
 def procesar_pais():
     print(request.form)
     datos = {
@@ -38,6 +43,7 @@ def procesar_pais():
 # endregion
 # region EDITAR
 @app.route("/paises/<int:id>/editar")
+@login_required
 def pais_actualizar(id):
 
     objeto = Pais.get(id)
@@ -47,6 +53,7 @@ def pais_actualizar(id):
 
 
 @app.route("/paises/<int:id>/editar", methods=["POST"])
+@login_required
 def procesar_editar(id):
     objeto = Pais.get(id)
     objeto.nombre = request.form['nombre']
@@ -58,6 +65,7 @@ def procesar_editar(id):
 
 
 @app.route("/paises/<int:id>/eliminar")
+@login_required
 def procesar_eliminado(id):
 
     Pais.delete(id)

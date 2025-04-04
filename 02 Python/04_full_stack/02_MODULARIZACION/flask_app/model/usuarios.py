@@ -1,4 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask import flash
 
 
 class Usuario:
@@ -10,6 +11,21 @@ class Usuario:
         self.contraseña = data["contraseña"]
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
+
+    @classmethod
+    def validar(cls, datos):
+        todo_ok = True
+
+        if datos['password'] != datos['password_confirm']:
+            flash("Las contraseñas no son iguales", "error")
+            todo_ok = False
+
+        if cls.existe_correo(datos['email']):
+            flash("El correo ya existe", "error")
+            todo_ok = False
+
+        return todo_ok
+
 
     @classmethod
     def get_all(cls):
@@ -24,6 +40,19 @@ class Usuario:
         return instancias
     
     @classmethod
+    def existe_correo(cls, correo):
+
+        query = "SELECT id FROM usuarios WHERE email = %(correo)s;"
+        data = {
+            'correo': correo,
+        }
+        resultados = connectToMySQL().query_db(query, data)
+        print("RESULTADO DEL EXISTE CORREO: ", resultados)
+
+        return len(resultados) > 0
+
+    
+    @classmethod
     def get(cls, id):
 
         query = f"SELECT id, nombre, email, contraseña, created_at, updated_at FROM usuarios WHERE id = %(id)s;"
@@ -31,6 +60,20 @@ class Usuario:
             'id': id
         }
         resultados = connectToMySQL().query_db(query, data)
+        instancia_nueva = cls(resultados[0])
+        return instancia_nueva
+    
+    @classmethod
+    def get_by_email(cls, email):
+
+        query = f"SELECT id, nombre, email, contraseña, created_at, updated_at FROM usuarios WHERE email = %(email)s;"
+        data = {
+            'email': email
+        }
+        resultados = connectToMySQL().query_db(query, data)
+        print(resultados)
+        if len(resultados) == 0:
+            return None
         instancia_nueva = cls(resultados[0])
         return instancia_nueva
 

@@ -25,8 +25,11 @@
             <td>{{item.comuna.nombre}}</td>
             <td>
                 <a class="btn btn-info" href="/{{sujeto}}/{{item.id}}">Ver detalle</a>
-                <a class="btn btn-warning" href="/{{sujeto}}/{{item.id}}/editar">Editar</a>
-                <a class="btn btn-danger btnEliminar" href="#" data-identificador="{{item.id}}" data-nombre="{{item.calle}} {{item.numero}}">Eliminar</a></td>
+                {% if item.usuario_id == session['usuario']['id']%}
+                    <a class="btn btn-warning" href="/{{sujeto}}/{{item.id}}/editar">Editar</a>
+                    <a class="btn btn-danger btnEliminar" href="#" data-identificador="{{item.id}}" data-nombre="{{item.calle}} {{item.numero}}">Eliminar</a>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>
