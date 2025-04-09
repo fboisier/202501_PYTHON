@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block titulo %}Bienvenido{% endblock %}</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/estilos.css') }}"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/toastr.min.css') }}"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/datatables.min.css') }}"
+        />
+
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/sweetalert2.min.css') }}"
+        />
+
+        {% block mis_estilos %} {% endblock %}
+    </head>
+
+
+    <body>
+
+        {% if 'usuario' in session %}
+            {% include "_menu.html" %}
+        {% endif %}
+        <div class="container">
+            {% block contenido %}
+            <h2 class="mt-2 p-2 ">Todas las asesorias</h2>
+            <table class="table align-middle">
+                <tbody>
+                  {% for dato in datos %}
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="mb-3">
+                            <h5 class="mb-0">{{dato.tema}}</h5>
+                            <p class="mb-0">{{ dato.created_at.strftime('%d %B') }}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="mb-3">
+                            <p class="mb-0">
+                              Solicitante: {{dato.usuario.nombre}}
+                            </p>
+                            <p class="mb-0">Duración: {{dato.duracion}}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        {% if dato.usuario.id == session['usuario']['id'] %}
+                        <a class="btn btn-info" href="/{{sujeto}}/{{dato.id}}">Ver</a>
+                        <a class="btn btn-warning" href="/{{sujeto}}/{{dato.id}}/editar">Editar</a>
+                        <form method="POST" action="/asesorias/{{ dato.id }}/eliminar" class="formEliminar d-inline">
+                          <button type="submit" class="btn btn-danger btnEliminar" data-tema="{{ dato.tema }}">
+                              Eliminar
+                          </button>
+                         </form> 
+                         {% endif %}                      
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>   
+            {% endblock %}
+  
+        </div>
+
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/toastr.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/datatables.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/sweetalert2.all.min.js') }}"></script>
+
+        <script>
+          const tablaDatos = new DataTable('#tablaDatos', opcionesDatatable);
+          $(".btnEliminar").click(function (e) {
+            e.preventDefault(); // Previene el submit automático
+        
+            const boton = $(this);
+            const tema = boton.data("tema");
+            const form = boton.closest("form");
+        
+            Swal.fire({
+                title: `¿Seguro que quieres eliminar "${tema}"?`,
+                text: "No podrás revertir esta acción.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Sí, eliminar",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Solo si el usuario confirma
+                }
+            });
+        });
+        
+
+            toastr.options = {
+                closeButton: true,
+                newestOnTop: true,
+                progressBar: true,
+                positionClass: "toast-top-right",
+            };
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                    {% for category, message in messages %}
+                    toastr.{{category}}("{{message}}", "Sistema Mensajes Flash")
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+        </script>
+        {% block mis_scripts %} {% endblock %}
+    </body>
+</html>

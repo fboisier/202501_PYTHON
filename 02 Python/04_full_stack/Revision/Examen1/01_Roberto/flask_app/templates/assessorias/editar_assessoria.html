@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block titulo %}Solicitar assessoria{% endblock %}
+
+{% block centeudo %}
+<div class="container">
+
+    <div class="caixa_welcome">
+        <div class="welcome_texto">
+            <h3>Editar tutoria | {{nome}} {{sobrenome}}</h3>
+        </div>
+        <div class="box_botoes">
+            <a class="btn btn-primary atam" style="width: 150px; margin-left: 330px;" href="/assessorias">Inicio</a>
+        </div>
+        <div class="box_botoes">
+            <a class="btn btn-secondary atam" style="width: 150px; margin-left: 30px;" href="/fechar_sessao">Fechar
+                sessão</a>
+        </div>
+    </div>
+
+    <div class="box_form" style="height:500px">
+        <form action="/update_assessoria" method="post">
+            <table>
+
+                <tr>
+                    <td>
+                        <label class="form-label l2">Tema:</label>
+                    </td>
+                    <td>
+                        <input type="text" class="select" name="tema" value="{{assessoria.tema}}" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="form-label l2">Data:</label>
+                    </td>
+                    <td>
+                        <input type="date" class="select" name="data" value="{{assessoria.data}}" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="form-label l2">Duração (horas):</label>
+                    </td>
+                    <td>
+                        <input type="number" class="select" name="duracao" value="{{assessoria.duracao}}" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="form-label l2">Notas:</label>
+                    </td>
+                    <td>
+                        <textarea class="select" name="notas" style="width: 300px; height: 150px;"
+                            value="{{assessoria.notas}}" required>{{assessoria.notas}}</textarea>
+                    </td>
+                </tr>
+            </table>
+            <div style="width: 500px; background-color: rgb(210, 210, 210)">
+                <table>
+                    <tr>
+                        <td style="width: 160px">
+                            <label class="form-label l2">Tutor:</label>
+                        </td>
+                        <td>
+                            <select class="select" name="tutor" value="{{assessoria.tutor}}" required>
+                                <option value="" disabled selected> -- Escolha o tutor --</option>
+                                {% for usuario in usuarios %}
+                                {% if usuario.id != id %}
+                                <option value="{{usuario.nome}}" {% if usuario.nome==assessoria.tutor %}selected{% endif
+                                    %}>{{usuario.nome}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <input type="hidden" name="id" value="{{assessoria.id}}">
+            <button type="submit" class="btn btn-primary"
+                style="width: 150px; margin-left: 10px; margin-top: 40px">Salvar</button>
+        </form>
+    </div>
+
+    {% endblock %}

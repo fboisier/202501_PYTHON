@@ -9,6 +9,7 @@ pymysql = "*"
 python-dotenv = "*"
 cryptography = "*"
 flask-bcrypt = "*"
+flask-wtf = "*"
 
 [dev-packages]
 

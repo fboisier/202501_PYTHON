@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+    />
+  </head>
+  <body class="container mt-3">
+    <div class="d-flex align-items-center">
+      <div class="d-flex justify-content-between w-100">
+        <div>
+          <h1 class="mb-0">Editar</h1>
+        </div>
+        <div>
+          <a href="/home" class="me-3">Inicio</a>
+          <a href="/cerrar_sesion">Cerrar sesión</a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row align-items-start mb-3">
+        <div class="col">
+          {% if validaciones_registro %} {% for mensaje in validaciones_registro
+          %}
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            {{ mensaje }}
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
+          </div>
+          {% endfor %} {% endif %}
+          <!-- Mensaje de error -->
+
+          <br />
+          <form action="/editar/{{asesoria.id}}" method="POST">
+            <!--Tema-->
+            <div class="row g-3 align-items-center mb-3">
+              <div class="col-3">
+                <label for="nombre" class="col-form-label">Tema</label>
+              </div>
+              <div class="col-9">
+                <input
+                  value="{{ asesoria.tema if asesoria else ''}}"
+                  type="text"
+                  id="tema"
+                  name="tema"
+                  required
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <!--Apellido-->
+            <div class="row g-3 align-items-center mb-3">
+              <div class="col-3">
+                <label for="apellido" class="col-form-label">fecha</label>
+              </div>
+              <div class="col-9">
+                <input
+                  value="{{ asesoria.fecha  if asesoria else '' }}"
+                  type="datetime-local"
+                  id="fecha"
+                  name="fecha"
+                  required
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <!--email-->
+            <div class="row g-3 align-items-center mb-3">
+              <div class="col-3">
+                <label for="duracion" class="col-form-label">Duracion</label>
+              </div>
+              <div class="col-9">
+                <input
+                  value="{{ asesoria.duracion if asesoria else ''}}"
+                  type="number"
+                  id="duracion"
+                  name="duracion"
+                  required
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <!--contraseña1-->
+            <div class="row g-3 align-items-center mb-3">
+              <div class="col-3">
+                <label for="notas" class="col-form-label">Notas</label>
+              </div>
+              <div class="col-9">
+                <textarea
+                  class="form-control"
+                  id="notas"
+                  name="notas"
+                  required
+                  rows="3"
+                >
+{{ asesoria.notas if asesoria else '' }}</textarea
+                >
+              </div>
+            </div>
+            <!--contraseña2-->
+            <div class="row g-3 align-items-center mb-3">
+              <div class="col-3">
+                <label for="password2" class="col-form-label">Tutor</label>
+              </div>
+
+              <div class="col-9"></div>
+              <select
+                class="form-select"
+                id="tutor_id"
+                name="tutor"
+                aria-label="Default select example"
+                required
+              >
+                {% if asesoria and asesoria.tutor %}
+                <option selected value="{{ asesoria.tutor.id }}">
+                  {{ asesoria.tutor.nombre }}
+                </option>
+                {% endif %} {% for tutor in tutores %} {%if tutor.id !=
+                usuario_id %}
+                <option value="{{ tutor.id }}">{{ tutor.nombre }}</option>
+                {% endif %} {% endfor %}
+              </select>
+            </div>
+
+            <div class="row">
+              <button type="submit" class="btn btn-primary mb-3">Editar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <br />
+    </div>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  </body>
+</html>

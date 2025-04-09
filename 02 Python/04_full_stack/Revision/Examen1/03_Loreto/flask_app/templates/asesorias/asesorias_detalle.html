@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Asesoría</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Detalle de la Asesoría</h2>
+        <div class="mb-3 text-end">
+            <a href="/" class="btn btn-outline-primary">Inicio</a>
+            <a href="/salir" class="btn btn-outline-danger">Cerrar Sesión</a>
+        </div>
+        <div class="card mb-4">
+            <div class="card-body">
+                <p><strong>Tema:</strong> {{ asesoria.tema }}</p>
+                <p><strong>Fecha:</strong> {{ asesoria.fecha }}</p>
+                <p><strong>Duración:</strong> {{ asesoria.duracion }} hora(s)</p>
+                <p><strong>Notas:</strong> {{ asesoria.notas }}</p>
+                <p><strong>Tutor actual:</strong> <span class="text-primary fw-bold">{{ asesoria.tutor }}</span></p>
+            </div>
+        </div>
+
+        <h5 class="mb-3">Editar tutor</h5>
+        <form action="/cambiar_tutor/{{ asesoria.id }}" method="POST" class="d-flex align-items-center gap-2">
+            <select name="nuevo_tutor" class="form-select w-auto">
+                {% for tutor in tutores %}
+                    <option value="{{ tutor }}" {% if tutor == asesoria.tutor %}selected{% endif %}>
+                        {{ tutor }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-success">Editar</button>
+        </form>
+
+    </div>
+</body>
+</html>
+
+
+

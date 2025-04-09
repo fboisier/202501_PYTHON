@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>Detalles de la Asesoría</h1>
+    </div>
+    <p><strong>Tema:</strong> {{ asesoria.nombre }}</p>
+    <p><strong>Fecha:</strong> {{ asesoria.fecha }}</p>
+    <p><strong>Duración:</strong> {{ asesoria.duracion }} horas</p>
+    <p><strong>Notas:</strong> {{ asesoria.notas }}</p>
+    <p><strong>Tutor:</strong> {{ asesoria.tutor }}</p>
+    <p><strong>Creador:</strong> {{ asesoria.creador }}</p>
+
+    {% if asesoria.usuario_id == user.id %}
+        <a href="{{ url_for('editar_asesoria', asesoria_id=asesoria.id) }}">Editar</a>
+        <a href="{{ url_for('borrar_asesoria', asesoria_id=asesoria.id) }}">Borrar</a>
+    {% endif %}
+
+    <a href="{{ url_for('dashboard') }}">Volver al Dashboard</a>
+
+    {% if asesoria.usuario_id == user.id %}
+        <form method="POST" action="/cambiar_tutor/{{ asesoria.id }}">
+            <div class="form-group">
+                <label for="tutor">Nuevo Tutor:</label>
+                <select class="form-control" id="tutor" name="tutor">
+                    {% for tutor in tutores %}
+                        <option value="{{ tutor[0] }}">{{ tutor[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Cambiar Tutor</button>
+        </form>
+    {% endif %}
+{% endblock %}

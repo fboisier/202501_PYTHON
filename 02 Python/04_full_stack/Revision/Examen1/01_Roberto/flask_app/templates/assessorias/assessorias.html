@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block titulo %}Tutoriza{% endblock %}
+
+{% block centeudo %}
+
+<div class="container">
+    <div class="caixa_welcome">
+        <div class="welcome_texto">
+            <h3>Bem-vind@ {{nome}} {{sobrenome}}</h3>
+        </div>
+        <div class="box_botoes">
+            <a class="btn btn-primary atam" style="width: 150px; margin-left: 330px;"
+                href="/solicitar_assessoria">Solicitar tutoria</a>
+        </div>
+        <div class="box_botoes">
+            <a class="btn btn-secondary atam" style="width: 150px; margin-left: 30px;" href="/fechar_sessao">Fechar
+                sessão</a>
+        </div>
+    </div>
+</div>
+
+<div class="container_card" style="margin-top: 20px;">
+    {% for assessoria in assessorias %}
+    {% if assessoria.data >= today %}
+    <div class="card">
+        <div class="box12">
+            <h5 style="font-weight: bold;">{{assessoria.tema}}</h5>
+            <h5>{{assessoria.data.strftime('%B %d')}}</h5>
+        </div>
+        <div class="box12">
+            <h5>Solicitante: {{assessoria.nome_usuario}}</h5>
+            <h5>Duração: {{assessoria.duracao}} hora(s)</h5>
+        </div>
+        <div class="box3">
+            <a class="btn btn-info atam" href="/mostrar_assessoria/{{assessoria.id}}">Ver</a>
+            {% if assessoria.usuario_id == id %}
+            <a class="btn btn-warning atam" style="margin-left: 10px;"
+                href="/editar_assessoria/{{assessoria.id}}">Editar</a>
+            <a class="btn btn-danger atam" style="margin-left: 10px;"
+                href="/eliminar_assessoria/{{assessoria.id}}">Eliminar</a>
+            {% else %}
+            <a class="btn btn-light atam" style="margin-left: 10px; color: #a6a6a6;" href="#">Editar</a>
+            <a class="btn btn-light atam" style="margin-left: 10px; color: #a6a6a6;" href="#">Eliminar</a>
+            {% endif %}
+        </div>
+        <hr>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Bienvenido {{ usuario.nombre }}
+{% endblock %}
+
+{% block contenido %}
+    <h1 class="text-center mt-3">Bienvenido, {{ usuario.nombre }}</h1>
+    <h4 class="text-center text-muted mb-4">Todas las asesorías</h4>
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+        {% if mensajes %}
+            <div class="container mb-3">
+                {% for categoria, mensaje in mensajes %}
+                    <div class="alert alert-{{ categoria }} alert-dismissible fade show" role="alert">
+                        {{ mensaje }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% if asesorias %}
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Tema</th>
+                    <th>Fecha</th>
+                    <th>Duración (h)</th>
+                    <th>Notas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asesoria in asesorias %}
+                    <tr>
+                        <td>{{ asesoria.id }}</td>
+                        <td>{{ asesoria.tema }}</td>
+                        <td>{{ asesoria.fecha }}</td>
+                        <td>{{ asesoria.duracion }}</td>
+                        <td>{{ asesoria.notas }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center">No hay asesorías registradas.</p>
+    {% endif %}
+{% endblock %}

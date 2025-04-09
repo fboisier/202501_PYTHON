@@ -51,6 +51,8 @@ class MySQLConnection:  # Clase que permite generar instancia de conexión con B
                     # UPDATE y DELETE no regresan nada
 
                     self.connection.commit()
+                    return True
+
 
             except Exception as e:
 

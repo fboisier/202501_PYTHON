@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/detalle_asesoria.css') }}">
+
+<div class="container mt-4">
+    <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">{{ asesoria.tema }}</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Solicitado por:</strong> {{ alumno.nombre }} {{ alumno.apellido }}</p>
+                    <p><strong>Fecha:</strong> {{ asesoria.fecha.strftime('%Y-%m-%d') }}</p>
+                    <p><strong>Duración:</strong> {{ asesoria.duracion }} horas</p>
+                    <p><strong>Notas:</strong> {{ asesoria.notas }}</p>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <div class="d-flex align-items-center mb-3">
+                    <span class="fw-bold me-2">Tutor Actual:</span>
+                    <span class="badge bg-primary">
+                        {% if tutor %}
+                            {{ tutor.nombre }} {{ tutor.apellido }}
+                        {% else %}
+                            No asignado
+                        {% endif %}
+                    </span>
+                </div>
+                
+                {% if tutores %}
+                <form method="POST" action="/asignar_tutor/{{ asesoria.id }}">
+                    <div class="d-flex align-items-center">
+                        <span class="fw-bold me-2">Asignar Tutor:</span>
+                        <select name="tutor_id" class="form-select w-auto me-2" required>
+                            <option value="" selected disabled>Seleccionar tutor</option>
+                            {% for t in tutores %}
+                            <option value="{{ t.id }}">{{ t.nombre }} {{ t.apellido }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-primary">Asignar Tutor</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+            
+            <div class="mt-4">
+                <a href="/editar_asesoria/{{ asesoria.id }}" class="btn btn-outline-primary">Editar Asesoría</a>
+                <a href="/eliminar_asesoria/{{ asesoria.id }}" class="btn btn-outline-danger ms-2">Eliminar Asesoría</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

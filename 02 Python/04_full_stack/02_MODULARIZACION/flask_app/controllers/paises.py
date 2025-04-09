@@ -2,6 +2,7 @@ from flask_app import app
 from flask_app.model.paises import Pais
 from flask import render_template, request, flash, redirect
 from flask_app.utils.decoradores import login_required
+from flask import jsonify
 
 @app.route("/paises")
 @login_required
@@ -72,3 +73,32 @@ def procesar_eliminado(id):
     flash("Pais eliminado correctamente", "success")
 
     return redirect("/paises")
+
+@app.route("/api/paises/<int:id>/eliminar")
+@login_required
+def procesar_eliminado_api(id):
+
+    objeto = Pais.get(id)  
+    resultado = Pais.delete(id)
+    print("RESULTADO", resultado)
+
+    if (resultado):
+        return jsonify(ok=True, pais_eliminado=objeto.serializar())
+    else:
+        return jsonify(ok=False, mensaje="No se pudo eliminar el registro. Tiene asociados a otras filas.")
+    
+
+
+
+@app.route("/api/paises", methods=["POST"])
+@login_required
+def procesar_pais_api():
+    print(request.json)
+    
+    datos = {
+        'nombre': request.json['nombre']
+    }
+
+    id = Pais.save(datos)
+
+    return jsonify(ok=True, id=id, mensaje="Creado exitosamente")

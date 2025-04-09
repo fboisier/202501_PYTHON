@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Alerta automática desde sesión (usada con jQuery) -->
+<body data-alert="{{ session.get('mensaje') }}">
+
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Bienvenid@, {{ usuario.nombre }}</h2>
+            <div>
+                <a href="/nueva_asesoria" class="btn btn-outline-primary">Crear Asesoría</a>
+                <a href="/logout" class="btn btn-outline-danger">Cerrar Sesión</a>
+            </div>
+        </div>
+        <h3>Todas las Asesorías:</h3>
+        {% for asesoria in asesorias %}
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ asesoria.tema }}</h5>
+                        <p class="card-text"><small class="text-muted">Fecha: {{ asesoria.fecha }}</small></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">Solicitante: {{ asesoria.creador }}</h6>
+                        <p class="card-text">Duración: {{ asesoria.duracion }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="/ver_asesoria/{{ asesoria.id }}" class="btn btn-sm btn-info">Ver</a>
+                        {% if asesoria.usuario_id == session['usuario_id'] %}
+                            <a href="/editar_asesoria/{{ asesoria.id }}" class="btn btn-sm btn-warning">Editar</a>
+                            <a href="/borrar_asesoria/{{ asesoria.id }}" class="btn btn-sm btn-danger">Borrar</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

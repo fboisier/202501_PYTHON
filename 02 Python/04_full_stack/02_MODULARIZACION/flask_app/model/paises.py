@@ -61,5 +61,13 @@ class Pais:
         data = {
             'id': id
         }
-        connectToMySQL().query_db(query, data)
-        return True
+        resultado = connectToMySQL().query_db(query, data)
+        return resultado
+
+    def serializar(self):
+        return {
+            'id': self.id,
+            'nombre': self.nombre,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+        }

@@ -112,3 +112,13 @@ class Usuario:
         }
         connectToMySQL().query_db(query, data)
         return True
+    
+    def serializar(self):
+        data = {
+            'id': self.id,
+            'nombre': self.nombre,
+            'email': self.email,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+        }
+        return data

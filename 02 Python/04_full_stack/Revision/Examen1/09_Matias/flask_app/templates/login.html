@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <!-- Login -->
+        <div class="col-md-5 mb-4">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="text-center mb-0">Iniciar Sesión</h2>
+                </div>
+                <div class="card-body">
+                    <form action="/login" method="post">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" name="email" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contraseña" class="form-label">Contraseña:</label>
+                            <input type="password" class="form-control" name="contraseña" id="contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registro -->
+        <div class="col-md-5">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="text-center mb-0">Registro</h2>
+                </div>
+                <div class="card-body">
+                    <form action="/registro" method="post">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido:</label>
+                            <input type="text" class="form-control" name="apellido" id="apellido" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email_registro" class="form-label">Email:</label>
+                            <input type="email" class="form-control" name="email" id="email_registro" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contraseña_registro" class="form-label">Contraseña:</label>
+                            <input type="password" class="form-control" name="contraseña" id="contraseña_registro" required minlength="8">
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmar_contraseña" class="form-label">Confirmar Contraseña:</label>
+                            <input type="password" class="form-control" name="confirmar_contraseña" id="confirmar_contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

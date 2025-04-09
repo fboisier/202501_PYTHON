@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary mb-0">Bienvenido, {{ usuario.nombre }} {{ usuario.apellido }}</h2>
+        <a href="/solicitar_asesoria" class="btn btn-primary">Solicitar Nueva Asesoría</a>
+    </div>
+
+    <h3 class="text-primary mb-3">Todas las Asesorias</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th>Tema</th>
+                    <th>Fecha</th>
+                    <th>Duración</th>
+                    <th>Solicitante</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asesoria in asesorias %}
+                <tr>
+                    <td>{{ asesoria.tema }}</td>
+                    <td>{{ asesoria.fecha.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ asesoria.duracion }} horas</td>
+                    <td>{{ asesoria.alumno_nombre }} {{ asesoria.alumno_apellido }}</td>
+                    <td>
+                        <a href="/ver_asesoria/{{ asesoria.id }}" class="btn btn-sm btn-outline-primary">Ver</a>
+                        <a href="/editar_asesoria/{{ asesoria.id }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a href="/eliminar_asesoria/{{ asesoria.id }}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenido</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="m-0">Bienvenido, {{ usuario.nombre }}</h1>
+            <div>
+                <a href="/asesorias/nuevo" class="btn btn-primary me-2">Solicitar asesoría</a>
+                <a href="/salir" class="btn btn-danger">Cerrar sesión</a>
+            </div>
+        </div>
+
+        <h4 class="text-muted mb-4">Todas las asesorías</h4>
+
+        {% if asesorias %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Tema</th>
+                            <th>Fecha</th>
+                            <th>Duración</th>
+                            <th>Notas</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for asesoria in asesorias %}
+                            <tr>
+                                <td>{{ asesoria.tema }}</td>
+                                <td>{{ asesoria.fecha }}</td>
+                                <td>{{ asesoria.duracion }} hora(s)</td>
+                                <td>{{ asesoria.notas }}</td>
+                                <td class="d-flex gap-1">
+                                    <a href="/asesorias/{{ asesoria.id }}" class="btn btn-sm btn-info">Ver</a>
+                                    <a href="/editar_asesoria/{{ asesoria.id }}" class="btn btn-sm btn-warning">Editar</a>
+                                    <form action="/eliminar_asesoria/{{ asesoria.id }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta asesoría?');">
+                                        <button type="submit" class="btn btn-sm btn-danger">Borrar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-muted">No tienes asesorías registradas.</p>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-primary mb-4">Editar Asesoría</h2>
+    <form action="/actualizar_asesoria" method="post" class="bg-white p-4 rounded shadow-sm">
+        <input type="hidden" name="id" value="{{ asesoria.id }}">
+        <div class="mb-3">
+            <label for="tema" class="form-label">Tema:</label>
+            <input type="text" class="form-control" name="tema" id="tema" value="{{ asesoria.tema }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha:</label>
+            <input type="date" class="form-control" name="fecha" id="fecha" value="{{ asesoria.fecha.strftime('%Y-%m-%d') }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="duracion" class="form-label">Duración (horas):</label>
+            <input type="number" class="form-control" name="duracion" id="duracion" min="1" value="{{ asesoria.duracion }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="notas" class="form-label">Notas:</label>
+            <textarea class="form-control" name="notas" id="notas" rows="3" required>{{ asesoria.notas }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="tutor_name" class="form-label">Tutor:</label>
+            <select class="form-select" name="tutor_name" id="tutor_name" required>
+                <option value="">-- Seleccione un tutor --</option>
+                <option value="Francisco" {% if asesoria.tutor_name == "Francisco" %}selected{% endif %}>Francisco</option>
+                <option value="Sebastián" {% if asesoria.tutor_name == "Sebastián" %}selected{% endif %}>Sebastián</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar Asesoría</button>
+    </form>
+</div>
+{% endblock %}

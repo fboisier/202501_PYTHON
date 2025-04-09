@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-primary mb-4">Solicitar Nueva Asesoría</h2>
+    <form action="/crear_asesoria" method="post" class="bg-white p-4 rounded shadow-sm">
+        <div class="mb-3">
+            <label for="tema" class="form-label">Tema:</label>
+            <input type="text" class="form-control" name="tema" id="tema" required>
+        </div>
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha:</label>
+            <input type="date" class="form-control" name="fecha" id="fecha" required>
+        </div>
+        <div class="mb-3">
+            <label for="duracion" class="form-label">Duración (horas):</label>
+            <input type="number" class="form-control" name="duracion" id="duracion" min="1" required>
+        </div>
+        <div class="mb-3">
+            <label for="notas" class="form-label">Notas:</label>
+            <textarea class="form-control" name="notas" id="notas" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="tutor_id" class="form-label">Tutor:</label>
+            <select class="form-select" name="tutor_id" id="tutor_id" required>
+                <option value="">-- Seleccione un tutor --</option>
+                <option value="1">Francisco</option>
+                <option value="2">Sebastián</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Solicitar Asesoría</button>
+    </form>
+</div>
+{% endblock %}

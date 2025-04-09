@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitar Asesoría</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="mb-4">Solicitar Asesoría</h2>
+
+        <div class="mb-3 text-end">
+            <a href="/" class="btn btn-outline-primary">Inicio</a>
+            <a href="/salir" class="btn btn-outline-danger">Cerrar Sesión</a>
+        </div>
+        <hr>
+
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+            {% if mensajes %}
+                <div class="mb-3">
+                    {% for categoria, mensaje in mensajes %}
+                        <div class="alert alert-{{ categoria }} alert-dismissible fade show" role="alert">
+                            {{ mensaje }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form action="/asesorias/crear" method="POST" class="bg-white p-4 rounded shadow-sm">
+            <div class="mb-3">
+                <label for="tema" class="form-label">Tema</label>
+                <input type="text" name="tema" id="tema" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input type="date" name="fecha" id="fecha" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="duracion" class="form-label">Duración (en horas)</label>
+                <input type="number" name="duracion" id="duracion" class="form-control" min="1" max="8" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="notas" class="form-label">Notas</label>
+                <textarea name="notas" id="notas" class="form-control" maxlength="50"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="tutor" class="form-label">Tutor</label>
+                <select name="tutor" id="tutor" class="form-select" required>
+                    <option value="" disabled selected>Selecciona un tutor</option>
+                    {% for tutor in tutores %}
+                        <option value="{{ tutor }}">{{ tutor }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="/" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+
+    <script src="/static/js/bootstrap.min.js"></script>
+</body>
+</html>
+

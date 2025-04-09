@@ -1,0 +1,35 @@
+{% extends "base_crud.html" %}
+
+{% block titulo %}Solicitar Asesoria{% endblock %}
+
+{% block contenido %}
+<h2 class="mt-2 p-2">Solicitar Asesoria</h2>
+<hr />
+        <form action="/asesorias" method="POST">
+            <label class="mt-2">Tema</label>    
+            <input type="text" name="tema" class="form-control" minlength = "2" required />
+
+            <label class="mt-2">Fecha</label>    
+            <input type="date" name="fecha" class="form-control" minlength = "2" required />
+
+            <label class="mt-2">Duración (hrs)</label>    
+            <input type="number" name="duracion" class="form-control" max = "8" required />
+
+            <label class="mt-2">Notas</label>
+            <textarea name="notas" class="form-control" maxlength = "50" required></textarea>
+            <input
+                type="submit"
+                value="Guardar"
+                class="btn btn-info mt-3"
+            />
+        </form>
+
+
+{% endblock %}
+
+{% block mis_scripts %} 
+
+<script>
+</script>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base_crud.html" %}
+
+{% block titulo %}Editar {{objeto.nombre}}{% endblock %}
+
+
+{% block mis_estilos %}
+<style>
+    .rojo {
+        background-color: red;
+    }
+</style>
+{% endblock %}
+
+
+{% block contenido %}
+<h1 class="mt-2 p-2 text-center">Actualizar {{objeto.tema}}</h1>
+<hr />
+
+<form action="/asesorias/{{ objeto.id }}/editar" method="POST">
+    <label for="tema">Tema</label>
+    <input type="text" name="tema" id="tema" value="{{ objeto.tema }}" class="form-control" required>
+
+    <label class="mt-2">Fecha</label>    
+    <input type="date" name="fecha" value="{{objeto.created}}" class="form-control" required />
+    
+    <label class="mt-2">Duración (hrs)</label>    
+    <input type="number" name="duracion" value="{{objeto.duracion}}" class="form-control" max = "8" required /> 
+    
+    <label class="mt-2">Notas</label>    
+    <textarea name="notas" value="{{objeto.notas}}" class="form-control" required /></textarea>
+
+    <input
+        type="submit"
+        value="Actualizar"
+        class="btn btn-primary mt-3"
+    />
+</form>
+
+{% endblock %}
+
+{% block mis_scripts %} 
+
+<script>
+</script>
+
+{% endblock %}

@@ -2,6 +2,7 @@ from flask_app import app
 from flask_app.model.usuarios import Usuario
 from flask_app.model.usuario_avanzado import UsuarioAvanzado
 from flask import render_template, request, flash, redirect
+from flask import jsonify
 
 @app.route("/usuarios")
 def listar_usuarios():
@@ -9,6 +10,28 @@ def listar_usuarios():
     usuarios = Usuario.get_all()
 
     return render_template("usuarios/usuarios.html", usuarios=usuarios)
+
+@app.route("/api/prueba")
+def prueba_api():
+
+    data = {
+        'nombre': 'Francisco',
+        'edad': 40,
+        'pasatiempos': ['programar', 'estudiar', 'videojuegos']
+    }
+
+    return jsonify(data)
+
+@app.route("/api/usuarios")
+def listar_usuarios_api():
+
+    usuarios = Usuario.get_all()
+
+    json_usuarios = []
+    for usuario in usuarios:
+        json_usuarios.append(usuario.serializar())
+
+    return jsonify(usuarios=json_usuarios)
 
 @app.route("/usuarios_avanzado")
 def listar_usuarios_avanzado():
@@ -76,3 +99,12 @@ def procesar_eliminado_usuario(id):
     flash("Usuario eliminado correctamente", "success")
 
     return redirect("/usuarios")
+
+
+@app.route("/api/usuarios/<int:id>/eliminar")
+def procesar_eliminado_usuario_api(id):
+    
+    objeto = Usuario.get(id)
+    Usuario.delete(id)
+
+    return jsonify(ok=True, usuario=objeto.serializar())

@@ -1,0 +1,23 @@
+{% extends "base_crud.html" %}
+
+{% block titulo %}{{objeto.tema}}{% endblock %}
+
+{% block contenido %}
+<h1 class="mt-2 p-2 text-center">{{objeto.tema}}</h1>
+<h3>Solicitado por: {{objeto.usuario.nombre}}</h3>
+<hr />
+
+<ul>
+    <li>Creado: {{ objeto.created_at.strftime('%d %B') }}</li>
+    <li>Duración: {{ objeto.duracion }} horas</li>
+    <li>Notas: {{objeto.notas}}</li>
+</ul>
+
+{% endblock %}
+
+{% block mis_scripts %} 
+
+<script>
+</script>
+
+{% endblock %}

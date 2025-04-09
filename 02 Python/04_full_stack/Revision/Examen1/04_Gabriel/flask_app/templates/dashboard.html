@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Bienvenid@, {{username}}</h1>
+        <div>
+            <a href="/nueva" class="btn btn-success btn-sm">Solicitar Asesoría</a>
+            <a href="/logout" class="btn btn-danger btn-sm">Cerrar Sesión</a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <tbody>
+                {% for asesoria in asesorias %}
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h5 class="mb-0">{{asesoria.tema}}</h5>
+                                <p class="mb-0">{{asesoria.fecha}}</p>
+                            </div>
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0">{{asesoria.tema}}</p>
+                                <p class="mb-0">{{asesoria.duracion}} minutos</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                <div class="d-flex gap-2">
+                    <a href="/ver/<{{ asesoria.id }}>" class="btn btn-primary btn-sm">Ver</a>
+                    <a href="/editar/<int:{{ asesoria.id }}>" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="/asesoria/{{ asesoria.id }}/borrar" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro que quieres borrar esta asesoría?');">
+                            Borrar
+                        </button>
+                    </form>
+                </div>
+            </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
